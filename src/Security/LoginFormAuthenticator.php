@@ -9,6 +9,7 @@ use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -37,7 +38,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
     public function supports(Request $request)
     {
-        return $request->attributes->get('_route') === 'app_login'
+        return $request->attributes->get('_route') === 'login'
             && $request->isMethod('POST');
     }
 
@@ -67,6 +68,9 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
     public function checkCredentials($credentials, UserInterface $user)
     {
+        if (empty($credentials['password'])) {
+            throw new CustomUserMessageAuthenticationException('dupdadupa.');
+        }
         return  $this->userPasswordEncoder->isPasswordValid($user, $credentials['password']);
     }
 
