@@ -48,6 +48,11 @@ class Articles
      */
     private $isPublished;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Category", mappedBy="articles")
+     */
+    private $category;
+
 
 
     public function __construct()
@@ -129,6 +134,37 @@ class Articles
     public function setIsPublished(bool $isPublished): self
     {
         $this->isPublished = $isPublished;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Category[]
+     */
+    public function getCategory(): Collection
+    {
+        return $this->category;
+    }
+
+    public function addCategory(Category $category): self
+    {
+        if (!$this->category->contains($category)) {
+            $this->category[] = $category;
+            $category->setArticles($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Category $category): self
+    {
+        if ($this->category->contains($category)) {
+            $this->category->removeElement($category);
+            // set the owning side to null (unless already changed)
+            if ($category->getArticles() === $this) {
+                $category->setArticles(null);
+            }
+        }
 
         return $this;
     }
