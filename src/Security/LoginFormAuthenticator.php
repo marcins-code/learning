@@ -69,7 +69,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     public function checkCredentials($credentials, UserInterface $user)
     {
         if (empty($credentials['password'])) {
-            throw new CustomUserMessageAuthenticationException('dupdadupa.');
+            throw new CustomUserMessageAuthenticationException('Hasło nie może być puste.');
         }
         return  $this->userPasswordEncoder->isPasswordValid($user, $credentials['password']);
     }
