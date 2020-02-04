@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
@@ -27,11 +28,13 @@ class Category
     private $description;
 
     /**
+     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
 
     /**
+     * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $updatedAt;
@@ -40,6 +43,12 @@ class Category
      * @ORM\ManyToOne(targetEntity="App\Entity\Articles", inversedBy="category")
      */
     private $articles;
+
+    /**
+     * @Gedmo\Slug(fields={"name"}, updatable=false, separator="_")
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
 
 
 
@@ -104,6 +113,18 @@ class Category
     public function setArticles(?Articles $articles): self
     {
         $this->articles = $articles;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

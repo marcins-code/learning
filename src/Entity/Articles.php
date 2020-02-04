@@ -5,6 +5,8 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArticlesRepository")
@@ -34,11 +36,13 @@ class Articles
     private $content;
 
     /**
+     * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
 
     /**
+     * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $updatedAt;
@@ -52,6 +56,12 @@ class Articles
      * @ORM\OneToMany(targetEntity="App\Entity\Category", mappedBy="articles")
      */
     private $category;
+
+    /**
+     * @Gedmo\Slug(fields={"title"}, updatable=false, separator="_")
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
 
 
 
@@ -165,6 +175,18 @@ class Articles
                 $category->setArticles(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }
