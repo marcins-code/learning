@@ -19,6 +19,17 @@ class CategoriesRepository extends ServiceEntityRepository
         parent::__construct($registry, Categories::class);
     }
 
+
+    public function findActiveCategories()
+    {
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.isEnabled = :val')
+            ->setParameter('val', true)
+            ->getQuery()
+            ->getResult();
+
+    }
+
     // /**
     //  * @return Categories[] Returns an array of Categories objects
     //  */
