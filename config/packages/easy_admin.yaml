@@ -29,12 +29,14 @@ easy_admin:
 
     entities:
         Category:
-            class: App\Entity\Category
+            class: App\Entity\Categories
             label: 'Kategorie'
             list:
                 fields:
                     - id
-                    - {property: 'name', label: 'Kategoria'}
+                    - {property: 'category', label: 'Kategoria'}
+                    - {property: 'parent', label: 'Nadrzędna'}
+                    - isEnabled
                     - {property: 'createdAt', label: 'Utworzono', format: 'j-n-Y'}
                     - {property: 'updatedAt', label: 'Aktualizacja', format: 'j-n-Y'}
             form:
@@ -43,14 +45,14 @@ easy_admin:
                     - { type: 'group', css_class: 'col-md-10', label: 'Opis'}
                     - { property: 'description', label: 'Opis kategorii', css_class: 'input-large', type: 'textarea', type_options: {attr: { class: 'codemirror w-100', style: 'max-width:100%' }}}
                     - { type: 'group', css_class: 'col-md-2', label: 'Dane kategorii'}
-                    - { property: 'name', label: 'Nazwa kategorii', css_class: 'input-large' }
+                    - { property: 'category', label: 'Nazwa kategorii', css_class: 'input-large' }
 
-        Menu:
-            class: App\Entity\Menu
-            label: 'Menu'
-            list:
-                fields:
-                    - id
+#        Menu:
+#            class: App\Entity\Menu
+#            label: 'Menu'
+#            list:
+#                fields:
+#                    - id
                     - {property: 'category', label: 'Kategoria'}
                     - {property: 'parent', label: 'Kategoria'}
 #                    - {property: 'createdAt', label: 'Utworzono', format: 'j-n-Y'}

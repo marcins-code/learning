@@ -52,10 +52,6 @@ class Articles
      */
     private $isPublished;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Category", mappedBy="articles")
-     */
-    private $category;
 
     /**
      * @Gedmo\Slug(fields={"title"}, updatable=false, separator="_")
@@ -148,36 +144,7 @@ class Articles
         return $this;
     }
 
-    /**
-     * @return Collection|Category[]
-     */
-    public function getCategory(): Collection
-    {
-        return $this->category;
-    }
 
-    public function addCategory(Category $category): self
-    {
-        if (!$this->category->contains($category)) {
-            $this->category[] = $category;
-            $category->setArticles($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCategory(Category $category): self
-    {
-        if ($this->category->contains($category)) {
-            $this->category->removeElement($category);
-            // set the owning side to null (unless already changed)
-            if ($category->getArticles() === $this) {
-                $category->setArticles(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function getSlug(): ?string
     {
