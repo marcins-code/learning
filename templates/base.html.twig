@@ -1,12 +1,56 @@
+{#{%  set menu  %}#}
+{#    {% include( 'sidebar/sidebar.html.twig' ) %}#}
+{#{% endset %}#}
+
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<html lang="pl-PL">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}
+            {{ title|spaceless }}
+        {% endblock -%}
+    </title>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('css/uikit.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/all.min.css') }}">
+        <link href="https://fonts.googleapis.com/css?family=Poppins:400,600|Roboto:400,700&display=swap" rel="stylesheet">
+    {% endblock %}
+    {% block javascripts %}
+        <script src="{{ asset('js/uikit.js') }}"></script>
+    {% endblock %}
+
+</head>
+<body>
+<div class="uk-section uk-padding-remove uk-hidden@m top-nav" data-uk-sticky>
+    <button class="uk-button uk-button-default uk-margin-small-right uk-hidden@m" type="button"
+            data-uk-toggle="target: #offcanvas-usage"><i class=" fas fa-bars"></i>
+    </button>
+
+    <div id="offcanvas-usage" data-uk-offcanvas>
+        <div class="uk-offcanvas-bar">
+
+            <button class="uk-offcanvas-close" type="button"><i class="fas fa-angle-double-right"></i></button>
+        </div>
+    </div>
+</div>
+
+<div class="uk-flex">
+    {% block sidebar %}
+        <div class="sidebar uk-visible@m">
+{#            {{ menu}}#}
+            {% if is_granted('ROLE_USER') %}
+                <a href="{{ path('logout') }}" class="" style="position: absolute; bottom: 0">wyloguj</a>
+            {% endif %}
+        </div>
+    {% endblock %}
+
+    <div class="main-content-wrapper">
+        <div class="article-content-wrapper">
+            {% block body %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+</body>
 </html>

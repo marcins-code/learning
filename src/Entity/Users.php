@@ -67,6 +67,7 @@ class Users implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Articles", mappedBy="author")
      */
     private $articles;
+    private $FullName;
 
     public function __construct()
     {
@@ -238,10 +239,13 @@ class Users implements UserInterface
     }
 
 
-//    public function fullName()
-//    {
-//        return $this->getFirstName() ;
-//    }
+    public function getFullName(): string
+    {
+        if ($this->getFirstName() && $this->getLastName()) {
+            return $this->getFirstName() . ' ' . $this->getLastName();
+        }
 
+        return $this->FullName;
+    }
 
 }

@@ -2,7 +2,7 @@ easy_admin:
     user:
         # this method/property must return the string representation of the user
         # (Symfony will look for getFullName(), isFullName(), ..., and 'fullName' property)
-        name_property_path: 'firstName'
+        name_property_path: 'FullName'
     design:
         assets:
 #            # all kinds of assets are supported and linked accordingly
