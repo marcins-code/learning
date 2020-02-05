@@ -1,6 +1,47 @@
-#easy_admin:
-#    entities:
-#        # List the entity class name you want to manage
-#        - App\Entity\Product
-#        - App\Entity\Category
-#        - App\Entity\User
+easy_admin:
+    user:
+        # this method/property must return the string representation of the user
+        # (Symfony will look for getFullName(), isFullName(), ..., and 'fullName' property)
+        name_property_path: 'firstName'
+    design:
+        assets:
+#            # all kinds of assets are supported and linked accordingly
+            css:
+                - '/codemirror/lib/codemirror.css'
+                - '/codemirror/addon/fold/foldgutter.css'
+                - '/codemirror/theme/darcula.css'
+
+            js:
+                - '/codemirror/lib/codemirror.js'
+                - '/codemirror/addon/edit/closetag.js'
+                - '/codemirror/addon/fold/foldcode.js'
+                - '/codemirror/addon/fold/foldgutter.js'
+                - '/codemirror/addon/fold/brace-fold.js'
+                - '/codemirror/addon/fold/xml-fold.js'
+                - '/codemirror/addon/fold/indent-fold.js'
+                - '/codemirror/addon/fold/markdown-fold.js'
+                - '/codemirror/addon/fold/comment-fold.js'
+                - '/codemirror/mode/xml/xml.js'
+                - '/codemirror/mode/css/css.js'
+                - '/codemirror/mode/htmlmixed/htmlmixed.js'
+                - '/codemirror/lib/codemirror_init.js'
+
+
+    entities:
+        Category:
+            class: App\Entity\Category
+            label: 'Kategorie'
+            list:
+                fields:
+                    - id
+                    - {property: 'name', label: 'Kategoria'}
+                    - {property: 'createdAt', label: 'Utworzono', format: 'j-n-Y'}
+                    - {property: 'updatedAt', label: 'Aktualizacja', format: 'j-n-Y'}
+            form:
+                title: "Dodaj/edytuj Kategorię"
+                fields:
+                    - { type: 'group', css_class: 'col-md-10', label: 'Opis'}
+                    - { property: 'description', label: 'Opis kategorii', css_class: 'input-large', type: 'textarea', type_options: {attr: { class: 'codemirror w-100', style: 'max-width:100%' }}}
+                    - { type: 'group', css_class: 'col-md-2', label: 'Dane kategorii'}
+                    - { property: 'name', label: 'Nazwa kategorii', css_class: 'input-large' }
+#                    - TODO dodas style do css
