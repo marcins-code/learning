@@ -30,6 +30,7 @@ class Categories
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Categories")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", nullable=true)
      */
     private $parent;
 

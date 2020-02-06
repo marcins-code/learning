@@ -30,6 +30,19 @@ class CategoriesRepository extends ServiceEntityRepository
 
     }
 
+
+//
+    public function testSQL()
+    {
+        $conn = $this->getEntityManager()
+            ->getConnection();
+        $sql = "SELECT * FROM categories ORDER BY id";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll();
+
+    }
+
     // /**
     //  * @return Categories[] Returns an array of Categories objects
     //  */
