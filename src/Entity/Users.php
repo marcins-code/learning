@@ -62,17 +62,22 @@ class Users implements UserInterface
      * @ORM\Column(type="boolean")
      */
     private $isEnabled;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Articles", mappedBy="author")
-     */
-    private $articles;
-    private $FullName;
+//
+//    /**
+//     * @ORM\OneToMany(targetEntity="App\Entity\Articles", mappedBy="author")
+//     */
+//    private $articles;
 
     public function __construct()
     {
         $this->articles = new ArrayCollection();
     }
+//    private $FullName;
+
+//    public function __construct()
+//    {
+//        $this->articles = new ArrayCollection();
+//    }
 
     public function getId(): ?int
     {
@@ -207,36 +212,36 @@ class Users implements UserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|Articles[]
-     */
-    public function getArticles(): Collection
-    {
-        return $this->articles;
-    }
-
-    public function addArticle(Articles $article): self
-    {
-        if (!$this->articles->contains($article)) {
-            $this->articles[] = $article;
-            $article->setAuthor($this);
-        }
-
-        return $this;
-    }
-
-    public function removeArticle(Articles $article): self
-    {
-        if ($this->articles->contains($article)) {
-            $this->articles->removeElement($article);
-            // set the owning side to null (unless already changed)
-            if ($article->getAuthor() === $this) {
-                $article->setAuthor(null);
-            }
-        }
-
-        return $this;
-    }
+//    /**
+//     * @return Collection|Articles[]
+//     */
+//    public function getArticles(): Collection
+//    {
+//        return $this->articles;
+//    }
+//
+//    public function addArticle(Articles $article): self
+//    {
+//        if (!$this->articles->contains($article)) {
+//            $this->articles[] = $article;
+//            $article->setAuthor($this);
+//        }
+//
+//        return $this;
+//    }
+//
+//    public function removeArticle(Articles $article): self
+//    {
+//        if ($this->articles->contains($article)) {
+//            $this->articles->removeElement($article);
+//            // set the owning side to null (unless already changed)
+//            if ($article->getAuthor() === $this) {
+//                $article->setAuthor(null);
+//            }
+//        }
+//
+//        return $this;
+//    }
 
 
     public function getFullName(): string
@@ -247,5 +252,36 @@ class Users implements UserInterface
 
         return $this->FullName;
     }
+
+//    /**
+//     * @return Collection|Articles[]
+//     */
+//    public function getArticles(): Collection
+//    {
+//        return $this->articles;
+//    }
+//
+//    public function addArticle(Articles $article): self
+//    {
+//        if (!$this->articles->contains($article)) {
+//            $this->articles[] = $article;
+//            $article->setAuthor($this);
+//        }
+//
+//        return $this;
+//    }
+//
+//    public function removeArticle(Articles $article): self
+//    {
+//        if ($this->articles->contains($article)) {
+//            $this->articles->removeElement($article);
+//            // set the owning side to null (unless already changed)
+//            if ($article->getAuthor() === $this) {
+//                $article->setAuthor(null);
+//            }
+//        }
+//
+//        return $this;
+//    }
 
 }

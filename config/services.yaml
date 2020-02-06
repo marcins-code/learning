@@ -28,7 +28,7 @@ services:
 
 
     app.menu_builder:
-        class: App\Menu\MenuBuilder
+        class: App\Menu\Builder
         arguments: ["@knp_menu.factory"]
         tags:
-            - { name: knp_menu.menu_builder, method: MyMenu, alias: sidebar_menu }
+            - { name: knp_menu.menu_builder, method: mainMenu, alias: sidebar_menu }

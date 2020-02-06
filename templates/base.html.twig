@@ -1,4 +1,4 @@
-{{ knp_menu_render('sidebar_menu') }}
+{{ knp_menu_render('sidebar_menu')}}
 
 <!DOCTYPE html>
 <html lang="pl-PL">
@@ -17,6 +17,9 @@
     {% endblock %}
     {% block javascripts %}
         <script src="{{ asset('js/uikit.js') }}"></script>
+        <script>$(function() {
+                $('nav a[href^="/' + location.pathname.split("/")[1] + '"]').addClass('active');
+            });</script>
     {% endblock %}
     {#    {{ dump() }}#}
 </head>
