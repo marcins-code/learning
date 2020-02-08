@@ -60,9 +60,17 @@ class Categories
      */
     private $childrenPages;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Articles", mappedBy="category_id")
+     */
+    private $articles;
+
+
+
     public function __construct()
     {
         $this->childrenPages = new ArrayCollection();
+        $this->articles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -173,15 +181,42 @@ class Categories
         return $this;
     }
 
+
+
     public function __toString()
     {
         return $this->getCategory();
     }
+
+    /**
+     * @return Collection|Articles[]
+     */
+    public function getArticles(): Collection
+    {
+        return $this->articles;
+    }
+
+    public function addArticle(Articles $article): self
+    {
+        if (!$this->articles->contains($article)) {
+            $this->articles[] = $article;
+            $article->setCategoryId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticle(Articles $article): self
+    {
+        if ($this->articles->contains($article)) {
+            $this->articles->removeElement($article);
+            // set the owning side to null (unless already changed)
+            if ($article->getCategoryId() === $this) {
+                $article->setCategoryId(null);
+            }
+        }
+
+        return $this;
+    }
+
 }
-
-
-//    public function __toString()
-//    {
-//        return $this->getCategory();
-//    }
-//}

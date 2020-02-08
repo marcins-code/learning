@@ -45,7 +45,7 @@ class Builder implements ContainerAwareInterface
 
     public function mainMenu( array $options)
     {
-        $this->menu = $this->factory->createItem('root') ->setChildrenAttributes(['class'=>'uk-nav-default uk-nav-parent-icon','data-uk-nav'=>'data-uk-nav']);
+        $this->menu = $this->factory->createItem('root') ->setChildrenAttributes(['class'=>'uk-nav-default uk-nav-parent-icon', 'uk-nav'=>"multiple: true"]);
         $this->menu->addChild('Home', array('route' => 'homepage'));
 
 //        $em = $this->container->get('doctrine')->getManager();
@@ -82,11 +82,11 @@ class Builder implements ContainerAwareInterface
 
 // If page doesn't have a parent, and no menuItem was passed then this is a top level add.
             if (empty($page->getParentPage())  && empty($menuItem))
-                $parentMenu = $this->menu->addChild($page->getCategory(),  ['route' => $categoriesRoute,
-                    'routeParameters' => [
-                        'slug' => $page->getSlug(),
-                    ]
-                ]);
+                $parentMenu = $this->menu->addChild($page->getCategory(),
+                    ['route' => $categoriesRoute,
+                    'routeParameters' => ['slug' => $page->getSlug(),],
+
+                ])->setLinkAttributes(['class'=>'uk-parent']);
 
 // if the current page's parent is === supplied parent, go deeper
             if ($page->getParentPage() === $parent) {
@@ -95,8 +95,10 @@ class Builder implements ContainerAwareInterface
 
 //                    $this->menu->setChildrenAttribute('class','uk-nav-sub');
                     $parentMenu = $menuItem->setChildrenAttribute('class','uk-nav-sub')
-                        ->setAttributes(['class'=>'uk-parent', ])
-                        ->addChild($page->getCategory(),  ['route' => $categoriesRoute,
+                        ->setLabelAttribute('label','wefewf')
+                        ->setAttributes(['class'=>'uk-parent','label'=>'wefwef' ])
+                        ->addChild($page->getCategory(),
+                         ['route' => $categoriesRoute,
                         'routeParameters' => [
                             'slug' => $page->getSlug(),
                         ]

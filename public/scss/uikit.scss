@@ -3,3 +3,36 @@
 //
 @import "variables";
 @import "components/_import.scss";
+
+
+.uk-nav-parent-icon > .uk-parent > a {
+  &:after {
+      //font-family: "Font Awesome 5 Free";
+      //font-weight: 900;
+      //content: "\f007";
+  }
+
+  //&:before {
+  //  font-family: "Font Awesome 5 Free";
+  //  font-weight: 900;
+  //  content: "\f007";
+  //}
+}
+
+
+.uk-parent > ul.uk-nav-sub {
+  //height: 0;
+  //overflow: hidden;
+}
+
+
+//.uk-button-xsmall  {
+//
+//  padding: 3px;
+//  line-height: 20px;
+//  border-radius: 10px;
+//
+//}
+
+
+

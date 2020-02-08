@@ -1,9 +1,20 @@
 easy_admin:
+    site_name: '<h2>Learning</h2>'
     user:
-        # this method/property must return the string representation of the user
-        # (Symfony will look for getFullName(), isFullName(), ..., and 'fullName' property)
+
         name_property_path: 'FullName'
     design:
+        menu:
+            - { label: 'Homepage', route: 'homepage', icon: 'home' }
+            - { label: 'Blog' }
+            - { entity: 'Articles', icon: 'newspaper',  default: true  }
+            - { entity: 'Category', icon: 'stream'}
+            - { entity: 'Tags', icon: 'stream'}
+
+
+
+        brand_color: '#3551BC'
+
         assets:
 #            # all kinds of assets are supported and linked accordingly
             css:
@@ -43,18 +54,42 @@ easy_admin:
                 title: "Dodaj/edytuj Kategorię"
                 fields:
                     - { type: 'group', css_class: 'col-md-10', label: 'Opis'}
-#                    - {property: 'category', label: 'Kategoria'}
                     - { property: 'description', label: 'Opis kategorii', css_class: 'input-large', type: 'textarea', type_options: {attr: { class: 'codemirror w-100', style: 'max-width:100%' }}}
                     - { type: 'group', css_class: 'col-md-2', label: 'Dane kategorii'}
-#                    - { property: 'childrenPages', label: 'Nazwa kategorii', css_class: 'input-large' }
-
-#        Menu:
-#            class: App\Entity\Menu
-#            label: 'Menu'
-#            list:
-#                fields:
-#                    - id
                     - {property: 'category', label: 'Kategoria'}
-                    - {property: 'parentPage', label: 'Kategoria'}
-#                    - {property: 'createdAt', label: 'Utworzono', format: 'j-n-Y'}
-##                    - {property: 'updatedAt', label: 'Aktualizacja', format: 'j-n-Y'}
+                    - { property: 'parentPage', label: 'Wybierz nadzędną', css_class: 'input-large' }
+
+        Articles:
+            class: App\Entity\Articles
+            label: 'Artykuły'
+            list:
+                fields:
+                    - id
+                    - {property: 'title', label: 'Tytuł'}
+                    - {property: 'category_id', label: 'Kategoria',  format: 'text'}
+                    - {property: 'user_id', label: 'Autor'}
+                    - isPublished
+                    - {property: 'createdAt', label: 'Utworzono', format: 'j-n-Y'}
+                    - tags
+            form:
+                title: "Dodaj/edytuj artykuł"
+                fields:
+                    - { type: 'group', css_class: 'col-md-10', label: 'Artykuł'}
+                    - { property: 'content', label: 'Opis kategorii', css_class: 'input-large', type: 'textarea', type_options: {attr: { class: 'codemirror w-100', style: 'max-width:100%' }}}
+                    - { type: 'group', css_class: 'col-md-2', label: 'Dane artykułu'}
+                    - {property: 'title', label: 'Tytuł'}
+                    - {property: 'category_id', label: 'Kategoria'}
+                    - {property: 'user_id', label: 'Autor'}
+#                    - isPublished
+#                    - { property: 'isPublished', label: 'forced toggle example', type: 'toggle' }
+                    - { property: 'isPublished', label: 'Opublikowany?' }
+                    - tags
+
+
+        Tags:
+            class: App\Entity\Tags
+            label: 'Artykuły'
+            list:
+                fields:
+                    - tag
+

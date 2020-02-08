@@ -1,5 +1,9 @@
-{{ knp_menu_render('sidebar_menu')}}
-
+{#{% set sidebar %}#}
+{#    {{ knp_menu_render('sidebar_menu') }}#}
+{#{% endset %}#}
+{% set sidebar %}
+{{ knp_menu_render('sidebar_menu', {'allow_safe_labels': true, 'currentClass': 'uk-active'}) }}
+{% endset %}
 <!DOCTYPE html>
 <html lang="pl-PL">
 <head>
@@ -11,51 +15,136 @@
     </title>
     {% block stylesheets %}
         <link rel="stylesheet" href="{{ asset('css/uikit.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/all.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}">
         <link href="https://fonts.googleapis.com/css?family=Poppins:400,600|Roboto:400,700&display=swap"
               rel="stylesheet">
+        <style>
+            body, .sidebar-wrapper {
+                min-height: 100vh;
+            }
+
+            .sidebar-wrapper {
+                width: 250px !important
+            }
+        </style>
     {% endblock %}
-    {% block javascripts %}
+    {% block javascripts_header %}
         <script src="{{ asset('js/uikit.js') }}"></script>
-        <script>$(function() {
-                $('nav a[href^="/' + location.pathname.split("/")[1] + '"]').addClass('active');
-            });</script>
     {% endblock %}
-    {#    {{ dump() }}#}
 </head>
 <body>
 
+{% block body %}
+    <div class="uk-section-large uk-padding-remove uk-grid" data-uk-grid>
+        {% block sidebar %}
+            <div class="uk-flex-left sidebar-wrapper uk-width-1-7@m uk-flex-first uk-visible@m uk-background-secondary">
 
-<div class="uk-section uk-padding-remove uk-hidden@m top-nav" data-uk-sticky>
-    <button class="uk-button uk-button-default uk-margin-small-right uk-hidden@m" type="button"
-            data-uk-toggle="target: #offcanvas-usage"><i class=" fas fa-bars"></i>
-    </button>
+                <div class="sidebar uk-padding-small">
+{{ sidebar }}
+{#                    {{ knp_menu_render('sidebar_menu') }}#}
+                </div>
+            </div>
+        {% endblock %}
+        <div class="uk-width-expand@m ">
+            {% block content %}
 
-    <div id="offcanvas-usage" data-uk-offcanvas>
-        <div class="uk-offcanvas-bar">
-
-            <button class="uk-offcanvas-close" type="button"><i class="fas fa-angle-double-right"></i></button>
-        </div>
-    </div>
-</div>
-
-<div class="uk-flex">
-    {% block sidebar %}
-        <div class="sidebar uk-visible@m">
-            {#            {{ menu }}#}
-            {% if is_granted('ROLE_USER') %}
-                <a href="{{ path('logout') }}" class="" style="position: absolute; bottom: 0">wyloguj</a>
-            {% endif %}
-        </div>
-    {% endblock %}
-
-    <div class="main-content-wrapper">
-        <div class="article-content-wrapper">
-            {% block body %}
             {% endblock %}
         </div>
     </div>
-</div>
+    </div>
+    {% block javascripts_body_bottom %}
+        <script>
+            let lifoo = document.querySelectorAll('.uk-parent > a');
 
+
+           // let duap = document.querySelector('.uk-parent > a:before').classList;
+           //  console.log(duap);
+            // var  fooEls = lifoo[0].querySelector(":scope > .uk-parent'");
+
+            // console.log(fooEls);
+         // item= li.querySelectorAll(":scope > .uk-nav-sub");
+         //    console.log(lifoo);
+
+            //
+            // var color = window.getComputedStyle(
+            //     document.querySelector('.uk-parent'), ':before'
+            // );
+
+            // let yyy = window.getComputedStyle(
+            //     document.querySelector('.uk-parent '), ':after');
+            //
+            // console.log(color);
+            //
+            // color.addEventListener('mousedown', function(){
+            //     console.log('mousedown');
+            // }
+
+
+            // var color = window.getComputedStyle(
+            //     document.querySelector('.uk-parent'), ':before'
+            // );
+            // console.log(color);
+
+            // color.addEventListener('mousedown', function(){
+            //     console.log('mousedown');
+            // });
+
+
+            // var link = document.getElementsByClassName('uk-parent');
+            // link.addEventListener('mousedown', event => {
+            //     // mouse button pressed
+            //     console.log(event.button) //0=left, 2=right
+            // })
+
+           let dupa = document.querySelectorAll("a > button.show-parent");
+            //
+            // var el = document.getElementById('div-03');
+
+            var r1 = dupa[0].closest(".uk-nav-sub");
+
+            console.log(dupa)
+            // // console.log(dupa);
+            // dupa[0].addEventListener("click", displayDate);
+            // //
+            // function displayDate() {
+            //
+            //     event.preventDefault()
+            //     event.preventDefault()
+            //     console.log('ok');
+            // }
+
+            // lifoo[0].addEventListener("click", function(){ alert("Hello World!"); });
+
+            // var dupa = lifoo[0].getComputedStyle(
+            //     document.querySelector('.uk-parent'), ':before').getPropertyValue('color');
+            // function getClosest(el, tag) {
+            //     // this is necessary since nodeName is always in upper case
+            //     tag = tag.toUpperCase();
+            //     do {
+            //         if (el.nodeName === tag) {
+            //             // tag name is found! let's return it. :)
+            //             return el;
+            //         }
+            //     } while (el = el.parentNode);
+            //
+            //     // not found :(
+            //     return null;
+            // }
+
+
+
+            // for (var i = 0 ; i < dupa.length; i++) {
+            //     dupa[i].addEventListener('click' , function() {
+            //         event.preventDefault();
+            //
+            //        console.log(dupa[i].closest('.uk-nav-sub'));
+            //     }) ;
+            //
+            //
+            // };
+        </script>
+
+    {% endblock %}
+{% endblock %}
 </body>
 </html>
