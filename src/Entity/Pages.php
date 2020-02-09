@@ -2,10 +2,13 @@
 
 namespace App\Entity;
 
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
 use Knp\Menu\NodeInterface;
+use Traversable;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PagesRepository")
@@ -103,7 +106,7 @@ class Pages implements NodeInterface
 //    private $author;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      *
      * @ORM\Column(name="CREATED_ON", type="datetime", nullable=false)
      */
@@ -274,7 +277,7 @@ class Pages implements NodeInterface
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getCreatedOn()
     {
@@ -282,9 +285,9 @@ class Pages implements NodeInterface
     }
 
     /**
-     * @param \DateTime $createdOn
+     * @param DateTime $createdOn
      */
-    public function setCreatedOn(\DateTime $createdOn)
+    public function setCreatedOn(DateTime $createdOn)
     {
         $this->createdOn = $createdOn;
     }
@@ -337,7 +340,7 @@ class Pages implements NodeInterface
      * Get the options for the factory to create the item for this node
      *
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public function getOptions():array
     {
@@ -360,15 +363,15 @@ class Pages implements NodeInterface
             ];
         }
 
-        throw new \Exception('No valid options found for page type', 500);
+        throw new Exception('No valid options found for page type', 500);
     }
 
     /**
      * Get the child nodes implementing NodeInterface
      *
-     * @return \Traversable
+     * @return Traversable
      */
-    public function getChildren():\Traversable
+    public function getChildren(): Traversable
 
     {
         return $this->getChildren();

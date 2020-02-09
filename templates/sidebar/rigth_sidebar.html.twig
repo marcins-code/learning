@@ -1,0 +1,10 @@
+{#{% extends 'base.html.twig' %}#}
+
+{#{% block title %}Hello RightSidebarController!{% endblock %}#}
+
+<ul class="uk-list uk-list-large uk-list-divider uk-margin-medium-right" >
+{% for article in articles %}
+<li class="uk-text-break" style="max-width: 200px">
+<a href="{{ path('articles', {'slug': article.slug}) }}">{{ article.title }}</a>
+</li>
+{% endfor %}

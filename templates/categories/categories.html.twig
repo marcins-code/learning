@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CategoriesController!{% endblock %}
+
+{% block content %}
+    {% set category %}
+        {% for item in test |slice(0,1) %}
+            {{ item.categoryId }}
+        {% endfor %}
+    {% endset %}
+
+
+    <div class="uk-card uk-card-default uk-margin-medium-bottom uk-margin-remove-top uk-box-shadow-large" uk-grid>
+        <div class="uk-card-media-left uk-background-primary ">
+            {#        <i class="fas fa-camera fa-10x"></i>#}
+            <i class="fab fa-symfony fa-6x uk-margin-medium-right" style="color: whitesmoke"></i>
+        </div>
+        <div class="uk-card-body uk-background-secondary uk-width-expand">
+            <h3 class="uk-card-title uk-text-white">
+            Artykuły w kategorii {{ category | upper }}
+            </h3>
+        </div>
+    </div>
+
+
+    {% for item in test %}
+        <div class="uk-card uk-card-default uk-border-rounded uk-margin-medium-bottom uk-box-shadow-large">
+            <div class="uk-card-header uk-background-secondary " style="overflow: hidden">
+                <div class="uk-grid-small uk-flex-middle" uk-grid>
+
+                    <div class="uk-width-expand uk-text-white">
+                        <h3 class="uk-card-title uk-margin-remove-bottom uk-text-bold uk-text-white">{{ item.title }}</h3>
+                        <p class="uk-text-meta uk-margin-small-top ">
+                            <span class="uk-margin-medium-right"><i
+                                        class="fas fa-user-edit"></i>  {{ item.userId }}</span>
+                            <span>
+                                <i class="far fa-calendar-alt"></i> {{ item.updatedAt | date("d-m-Y") }}</span>
+                            <span class="uk-margin-medium-left uk-margin-medium-right"><i
+                                        class="fas fa-stream"></i> {{ item.categoryId }}</span>
+                            <span><i class="fas fa-tags"></i>
+                            {% for tag in item.tags %}
+                                <span class="uk-label uk-text-small"> {{ tag.tag }}</span>
+                            {% endfor %}
+                                </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="uk-card-body">
+
+            </div>
+            <div class="uk-card-footer uk-background-primary">
+                <a class="uk-button uk-button-small uk-button-primary"
+                   href="{{ path('articles', {'slug': item.slug}) }}">Czytaj</a>
+            </div>
+        </div>
+    {% endfor %}
+
+
+
+    {#    {% for item in test %}#}
+    {#        <article class="uk-article">#}
+    {#            <h3 class="uk-heading-bullet uk-heading-line ">#}
+    {#                <span> {{ item.title }}</span>#}
+    {#            </h3>#}
+    {#            <p class="uk-article-meta">Utworzony: {{ item.createdAt | date("d-m-Y") }} Autor {{ item.userId }}#}
+    {#                {% for tag in item.tags %}#}
+    {#                    <span class="uk-label uk-label-success uk-text-small"> {{ tag.tag }}</span>#}
+    {#                {% endfor %}#}
+    {#            </p>#}
+
+    {#            <a class="uk-button uk-button-small uk-button-primary" href="{{ path('articles', {'slug': item.slug}) }}">Czytaj</a>#}
+    {#            <hr class="uk-divider-icon">#}
+    {#        </article>#}
+    {#    {% endfor %}#}
+{% endblock %}
+

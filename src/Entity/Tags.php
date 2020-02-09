@@ -29,7 +29,7 @@ class Tags
     private $isEnabled;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Articles", mappedBy="tags")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Articles", inversedBy="tags")
      */
     private $articles;
 

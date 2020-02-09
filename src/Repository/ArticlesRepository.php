@@ -47,4 +47,16 @@ class ArticlesRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findRecentArticles()
+    {
+        return $this->createQueryBuilder('r')
+           ->select('r.title', 'r.slug')
+            ->addSelect('r.slug')
+            ->orderBy('r.createdAt', 'DESC')
+            ->setMaxResults(5)
+            ->getQuery()
+            ->getResult();
+    }
+
 }

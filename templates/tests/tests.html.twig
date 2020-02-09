@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+  {% block content %}
+      <style>
+          body {
+              background-color: whitesmoke !important;
+          }
+      </style>
+      <div class="uk-background-muted">
+
+
+          {% macro menu(links) %}
+{#              {% import _self as macro %}#}
+              <ul class="dub-nav">
+                  {% for link in links %}
+                      <li {% if  link['children']|default([]) is not  empty %} class="parent"{% endif %}>
+                          <a href="{{ path('categories', { 'slug': link.slug }) }}">{{ link.category }}</a>
+                          {% if not link['children']|default([]) is empty %}
+                              {{ _self.menu(link['children']) }}
+                          {% endif %}
+                      </li>
+                  {% endfor %}
+              </ul>
+          {% endmacro %}
+
+
+          {#          {% macro menu(links) %}#}
+
+          <ul>
+              {% for item in repo %}
+                  <li {% if  item['children']|default([]) is not  empty %} class="parent"{% endif %}>
+                      <a href="{{ path('categories', { 'slug': item.slug }) }}" >{{ item.category }}</a>
+                      {% if not item['children']|default([]) is empty %}
+                          {{ _self.menu(item['children']) }}
+                      {% endif %}
+                  </li>
+              {% endfor %}
+          </ul>
+
+{#          {{ _self.menu(repo) }}}#}
+      </div>
+  {% endblock %}

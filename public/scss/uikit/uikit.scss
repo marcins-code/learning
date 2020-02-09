@@ -1,0 +1,37 @@
+//
+// Core
+
+@import "components/_import.scss";
+
+
+
+body{
+//background-image: url("/images/background/body-linen.jpg");
+  background-attachment: fixed;
+  //background-image: linear-gradient(to right top, #0e3038, #153344, #25344c, #3a3450, #4e334e, #503550, #533853, #553a55, #46405c, #38455c, #314858, #324a51);
+  background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNSIgaGVpZ2h0PSIxNSI+CjxyZWN0IHdpZHRoPSI1MCIgaGVpZ2h0PSI1MCIgZmlsbD0iIzI4MjgyOCI+PC9yZWN0Pgo8Y2lyY2xlIGN4PSIzIiBjeT0iNC4zIiByPSIxLjgiIGZpbGw9IiMzOTM5MzkiPjwvY2lyY2xlPgo8Y2lyY2xlIGN4PSIzIiBjeT0iMyIgcj0iMS44IiBmaWxsPSJibGFjayI+PC9jaXJjbGU+CjxjaXJjbGUgY3g9IjEwLjUiIGN5PSIxMi41IiByPSIxLjgiIGZpbGw9IiMzOTM5MzkiPjwvY2lyY2xlPgo8Y2lyY2xlIGN4PSIxMC41IiBjeT0iMTEuMyIgcj0iMS44IiBmaWxsPSJibGFjayI+PC9jaXJjbGU+Cjwvc3ZnPg==");}
+
+
+.uk-text-white{
+color: #f1f1f1 !important;
+}
+
+.uk-label{
+padding: 2px;
+border-radius: 2px;
+  box-shadow: 0px 2px 0px #0e4a94;
+}
+
+.uk-text-small{
+  font-size: 0.75rem !important;
+}
+
+.uk-card-body {
+  padding: 20px !important;
+}
+
+
+@media (min-width: 1200px) {}
+.uk-card-body {
+  padding: 30px 20px !important;
+}

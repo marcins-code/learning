@@ -7,9 +7,9 @@ easy_admin:
         menu:
             - { label: 'Homepage', route: 'homepage', icon: 'home' }
             - { label: 'Blog' }
-            - { entity: 'Articles', icon: 'newspaper',  default: true  }
+#            - { entity: 'Articles', icon: 'newspaper',  default: true  }
             - { entity: 'Category', icon: 'stream'}
-            - { entity: 'Tags', icon: 'stream'}
+#            - { entity: 'Tags', icon: 'stream'}
 
 
 
@@ -46,10 +46,13 @@ easy_admin:
                 fields:
                     - id
                     - {property: 'category', label: 'Kategoria'}
-                    - {property: 'parentPage', label: 'Nadrzędna'}
-#                    - isEnabled
+                    - {property: 'parent', label: 'Nadrzędna'}
+                    - isEnabled
+#                    - icon
                     - {property: 'createdAt', label: 'Utworzono', format: 'j-n-Y'}
-                    - {property: 'UpdatedAt', label: 'Aktualizacja', format: 'j-n-Y'}
+#                    - {property: 'UpdatedAt', label: 'Aktualizacja', format: 'j-n-Y'}
+
+
             form:
                 title: "Dodaj/edytuj Kategorię"
                 fields:
@@ -57,39 +60,40 @@ easy_admin:
                     - { property: 'description', label: 'Opis kategorii', css_class: 'input-large', type: 'textarea', type_options: {attr: { class: 'codemirror w-100', style: 'max-width:100%' }}}
                     - { type: 'group', css_class: 'col-md-2', label: 'Dane kategorii'}
                     - {property: 'category', label: 'Kategoria'}
-                    - { property: 'parentPage', label: 'Wybierz nadzędną', css_class: 'input-large' }
+                    - { property: 'parent', label: 'Wybierz nadzędną', css_class: 'input-large' }
+#                    - icon
 
-        Articles:
-            class: App\Entity\Articles
-            label: 'Artykuły'
-            list:
-                fields:
-                    - id
-                    - {property: 'title', label: 'Tytuł'}
-                    - {property: 'category_id', label: 'Kategoria',  format: 'text'}
-                    - {property: 'user_id', label: 'Autor'}
-                    - isPublished
-                    - {property: 'createdAt', label: 'Utworzono', format: 'j-n-Y'}
-                    - tags
-            form:
-                title: "Dodaj/edytuj artykuł"
-                fields:
-                    - { type: 'group', css_class: 'col-md-10', label: 'Artykuł'}
-                    - { property: 'content', label: 'Opis kategorii', css_class: 'input-large', type: 'textarea', type_options: {attr: { class: 'codemirror w-100', style: 'max-width:100%' }}}
-                    - { type: 'group', css_class: 'col-md-2', label: 'Dane artykułu'}
-                    - {property: 'title', label: 'Tytuł'}
-                    - {property: 'category_id', label: 'Kategoria'}
-                    - {property: 'user_id', label: 'Autor'}
+#        Articles:
+#            class: App\Entity\Articles
+#            label: 'Artykuły'
+#            list:
+#                fields:
+#                    - id
+#                    - {property: 'title', label: 'Tytuł'}
+#                    - {property: 'category_id', label: 'Kategoria',  format: 'text'}
+#                    - {property: 'user_id', label: 'Autor'}
 #                    - isPublished
-#                    - { property: 'isPublished', label: 'forced toggle example', type: 'toggle' }
-                    - { property: 'isPublished', label: 'Opublikowany?' }
-                    - tags
-
-
-        Tags:
-            class: App\Entity\Tags
-            label: 'Artykuły'
-            list:
-                fields:
-                    - tag
+#                    - {property: 'createdAt', label: 'Utworzono', format: 'j-n-Y'}
+#                    - tags
+#            form:
+#                title: "Dodaj/edytuj artykuł"
+#                fields:
+#                    - { type: 'group', css_class: 'col-md-10', label: 'Artykuł'}
+#                    - { property: 'content', label: 'Opis kategorii', css_class: 'input-large', type: 'textarea', type_options: {attr: { class: 'codemirror w-100', style: 'max-width:100%' }}}
+#                    - { type: 'group', css_class: 'col-md-2', label: 'Dane artykułu'}
+#                    - {property: 'title', label: 'Tytuł'}
+#                    - {property: 'category_id', label: 'Kategoria'}
+#                    - {property: 'user_id', label: 'Autor'}
+##                    - isPublished
+##                    - { property: 'isPublished', label: 'forced toggle example', type: 'toggle' }
+#                    - { property: 'isPublished', label: 'Opublikowany?' }
+#                    - tags
+#
+#
+#        Tags:
+#            class: App\Entity\Tags
+#            label: 'Artykuły'
+#            list:
+#                fields:
+#                    - tag
 

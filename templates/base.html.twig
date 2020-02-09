@@ -2,7 +2,7 @@
 {#    {{ knp_menu_render('sidebar_menu') }}#}
 {#{% endset %}#}
 {% set sidebar %}
-{{ knp_menu_render('sidebar_menu', {'allow_safe_labels': true, 'currentClass': 'uk-active'}) }}
+{#    {{ knp_menu_render('sidebar_menu', {'allow_safe_labels': true, 'currentClass': 'uk-active'}) }}#}
 {% endset %}
 <!DOCTYPE html>
 <html lang="pl-PL">
@@ -19,12 +19,17 @@
         <link href="https://fonts.googleapis.com/css?family=Poppins:400,600|Roboto:400,700&display=swap"
               rel="stylesheet">
         <style>
-            body, .sidebar-wrapper {
+
+            body{min-height: 100vh;}
+            .sidebar-wrapper {
                 min-height: 100vh;
+                max-width: 250px !important;
+                background-image: linear-gradient(to bottom, #022136, #01243c, #002842, #002b49, #002e4f);            .sidebar{
+                width: 200px !important;
             }
 
-            .sidebar-wrapper {
-                width: 250px !important
+            .content-wrapper{
+                padding: 10px 50px 10px 50px;
             }
         </style>
     {% endblock %}
@@ -35,116 +40,67 @@
 <body>
 
 {% block body %}
-    <div class="uk-section-large uk-padding-remove uk-grid" data-uk-grid>
-        {% block sidebar %}
-            <div class="uk-flex-left sidebar-wrapper uk-width-1-7@m uk-flex-first uk-visible@m uk-background-secondary">
+<div class="uk-section-large uk-padding-remove uk-grid" data-uk-grid>
+    {% block sidebar %}
+        <div class="uk-flex-left sidebar-wrapper uk-width-1-6@m uk-flex-first uk-visible@m uk-background-secondary">
 
-                <div class="sidebar uk-padding-small">
-{{ sidebar }}
-{#                    {{ knp_menu_render('sidebar_menu') }}#}
-                </div>
+            <div class="sidebar " uk-sticky>
+                <button data-uk-toggle="target: #my-id" type="button"></button>
+                {{ sidebar }}
             </div>
+        </div>
+    {% endblock %}
+    <div class="uk-width-expand@m content-wrapper uk-margin-left uk-padding-small uk-padding-large ">
+        {% block content %}
+
         {% endblock %}
-        <div class="uk-width-expand@m ">
-            {% block content %}
+    </div>
+
+    <div class="uk-flex-left sidebar-wrapper uk-width-1-6@m uk-visible@m uk-background-secondary">
+        <div class="sidebar uk-padding-remove" uk-sticky>
+            {% block rigth_sidebar %}
+                {{ render(controller(
+                    'App\\Controller\\SubControler\\RightSidebarController::recentArticles',
+                    { 'max': 1 }
+                )) }}
 
             {% endblock %}
         </div>
     </div>
+</div>
+    {#<a href="" data-uk-totop data-uk-scroll id="totop" class="uk-position-fixed uk-animation-scale-up"#}
+    {#   style="bottom: 30px; right: 30px;display: none;">ewfwfe</a>#}
+
+
+    <div id="my-id" uk-offcanvas>
+        <div class="uk-offcanvas-bar">
+
+            <button class="uk-offcanvas-close" type="button" data-uk-close></button>
+            {{ dump() }}
+        </div>
     </div>
+
     {% block javascripts_body_bottom %}
+
         <script>
-            let lifoo = document.querySelectorAll('.uk-parent > a');
 
-
-           // let duap = document.querySelector('.uk-parent > a:before').classList;
-           //  console.log(duap);
-            // var  fooEls = lifoo[0].querySelector(":scope > .uk-parent'");
-
-            // console.log(fooEls);
-         // item= li.querySelectorAll(":scope > .uk-nav-sub");
-         //    console.log(lifoo);
-
+            //        var mybutton = document.getElementById("totop");
             //
-            // var color = window.getComputedStyle(
-            //     document.querySelector('.uk-parent'), ':before'
-            // );
-
-            // let yyy = window.getComputedStyle(
-            //     document.querySelector('.uk-parent '), ':after');
+            //        // When the user scrolls down 20px from the top of the document, show the button
+            //        window.onscroll = function () {
+            //            scrollFunction()
+            //        };
             //
-            // console.log(color);
-            //
-            // color.addEventListener('mousedown', function(){
-            //     console.log('mousedown');
-            // }
+            //        function scrollFunction() {
+            //            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 200) {
+            //                mybutton.style.display = "block";
+            //            } else {
+            //                mybutton.style.display = "none";
+            //            }
+            //        }
 
-
-            // var color = window.getComputedStyle(
-            //     document.querySelector('.uk-parent'), ':before'
-            // );
-            // console.log(color);
-
-            // color.addEventListener('mousedown', function(){
-            //     console.log('mousedown');
-            // });
-
-
-            // var link = document.getElementsByClassName('uk-parent');
-            // link.addEventListener('mousedown', event => {
-            //     // mouse button pressed
-            //     console.log(event.button) //0=left, 2=right
-            // })
-
-           let dupa = document.querySelectorAll("a > button.show-parent");
-            //
-            // var el = document.getElementById('div-03');
-
-            var r1 = dupa[0].closest(".uk-nav-sub");
-
-            console.log(dupa)
-            // // console.log(dupa);
-            // dupa[0].addEventListener("click", displayDate);
-            // //
-            // function displayDate() {
-            //
-            //     event.preventDefault()
-            //     event.preventDefault()
-            //     console.log('ok');
-            // }
-
-            // lifoo[0].addEventListener("click", function(){ alert("Hello World!"); });
-
-            // var dupa = lifoo[0].getComputedStyle(
-            //     document.querySelector('.uk-parent'), ':before').getPropertyValue('color');
-            // function getClosest(el, tag) {
-            //     // this is necessary since nodeName is always in upper case
-            //     tag = tag.toUpperCase();
-            //     do {
-            //         if (el.nodeName === tag) {
-            //             // tag name is found! let's return it. :)
-            //             return el;
-            //         }
-            //     } while (el = el.parentNode);
-            //
-            //     // not found :(
-            //     return null;
-            // }
-
-
-
-            // for (var i = 0 ; i < dupa.length; i++) {
-            //     dupa[i].addEventListener('click' , function() {
-            //         event.preventDefault();
-            //
-            //        console.log(dupa[i].closest('.uk-nav-sub'));
-            //     }) ;
-            //
-            //
-            // };
         </script>
-
     {% endblock %}
-{% endblock %}
+    {% endblock %}
 </body>
 </html>

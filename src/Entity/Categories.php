@@ -20,7 +20,7 @@ class Categories
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=255)
      */
     private $category;
 
@@ -29,6 +29,12 @@ class Categories
      * @ORM\Column(type="string", length=100)
      */
     private $slug;
+
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isEnabled = true;
 
     /**
      * @Gedmo\Timestampable(on="create")
@@ -40,7 +46,7 @@ class Categories
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $UpdatedAt;
+    private $updatedAt;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -49,28 +55,15 @@ class Categories
 
 
     /**
-     * A page can have one parent
-     * @ORM\ManyToOne(targetEntity="Categories", inversedBy="childrenPages")
+     * @ORM\ManyToOne(targetEntity="Categories")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", nullable=true)
      */
-    private $parentPage;
-
-    /**
-     * @ORM\OneToMany(targetEntity="Categories", mappedBy="parentPage")
-     *
-     */
-    private $childrenPages;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Articles", mappedBy="category_id")
-     */
-    private $articles;
-
+    private $parent;
 
 
     public function __construct()
     {
-        $this->childrenPages = new ArrayCollection();
-        $this->articles = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -102,6 +95,19 @@ class Categories
         return $this;
     }
 
+
+    public function getIsEnabled(): ?bool
+    {
+        return $this->isEnabled;
+    }
+
+    public function setIsEnabled(bool $isEnabled): self
+    {
+        $this->isEnabled = $isEnabled;
+
+        return $this;
+    }
+
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -116,12 +122,12 @@ class Categories
 
     public function getUpdatedAt(): ?\DateTimeInterface
     {
-        return $this->UpdatedAt;
+        return $this->updatedAt;
     }
 
-    public function setUpdatedAt(?\DateTimeInterface $UpdatedAt): self
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): self
     {
-        $this->UpdatedAt = $UpdatedAt;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
@@ -138,85 +144,27 @@ class Categories
         return $this;
     }
 
-    public function getParentPage(): ?self
+    public function getParent()
     {
-        return $this->parentPage;
+        return $this->parent;
     }
 
-    public function setParentPage(?self $parentPage): self
+    public function setParent($parent)
     {
-        $this->parentPage = $parentPage;
+        $this->parent = $parent;
 
         return $this;
     }
-
-    /**
-     * @return Collection|Categories[]
-     */
-    public function getChildrenPages(): Collection
-    {
-        return $this->childrenPages;
-    }
-
-    public function addChildrenPage(Categories $childrenPage): self
-    {
-        if (!$this->childrenPages->contains($childrenPage)) {
-            $this->childrenPages[] = $childrenPage;
-            $childrenPage->setParentPage($this);
-        }
-
-        return $this;
-    }
-
-    public function removeChildrenPage(Categories $childrenPage): self
-    {
-        if ($this->childrenPages->contains($childrenPage)) {
-            $this->childrenPages->removeElement($childrenPage);
-            // set the owning side to null (unless already changed)
-            if ($childrenPage->getParentPage() === $this) {
-                $childrenPage->setParentPage(null);
-            }
-        }
-
-        return $this;
-    }
-
-
 
     public function __toString()
     {
-        return $this->getCategory();
+        return $this->category;
     }
 
-    /**
-     * @return Collection|Articles[]
-     */
-    public function getArticles(): Collection
-    {
-        return $this->articles;
-    }
 
-    public function addArticle(Articles $article): self
-    {
-        if (!$this->articles->contains($article)) {
-            $this->articles[] = $article;
-            $article->setCategoryId($this);
-        }
 
-        return $this;
-    }
 
-    public function removeArticle(Articles $article): self
-    {
-        if ($this->articles->contains($article)) {
-            $this->articles->removeElement($article);
-            // set the owning side to null (unless already changed)
-            if ($article->getCategoryId() === $this) {
-                $article->setCategoryId(null);
-            }
-        }
 
-        return $this;
-    }
+
 
 }

@@ -47,4 +47,32 @@ class CategoriesRepository extends ServiceEntityRepository
         ;
     }
     */
+
+
+    public function findEnabledCategories()
+    {
+
+        return $this->createQueryBuilder('e')
+
+//            ->select('e.', 'e.category', 'e.slug')
+            ->andWhere('e.isEnabled=true')
+            ->getQuery()
+            ->getScalarResult();
+    }
+
+
+    public function findArticlesByCategory($q)
+    {
+        return $this->createQueryBuilder('a')
+//            ->leftJoin('.a.articles', 'b')
+//            ->where('a.id = b.category_id')
+            ->andWhere('a.id=:val')
+            ->setParameter('val',$q)
+            ->getQuery()
+            ->getResult();
+
+
+    }
+
+
 }

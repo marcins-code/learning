@@ -6,6 +6,7 @@ use App\Entity\Categories;
 use App\Entity\Pages;
 use App\Repository\CategoriesRepository;
 use App\Repository\PagesRepository;
+use Exception;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Knp\Menu\MenuItem;
@@ -58,7 +59,7 @@ class Builder implements ContainerAwareInterface
         try {
             $this->buildPageTree($pages );
 //            dd($this->buildPageTree($pages));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             error_log($e->getMessage());
         }
 
@@ -71,7 +72,7 @@ class Builder implements ContainerAwareInterface
      * @param Categories $parent
      * @param MenuItem $menuItem
      *
-     * @throws \Exception
+     * @throws Exception
      */
     private function buildPageTree(array $pages, $parent = null, $menuItem = null)
     {
@@ -84,7 +85,7 @@ class Builder implements ContainerAwareInterface
             if (empty($page->getParentPage())  && empty($menuItem))
                 $parentMenu = $this->menu->addChild($page->getCategory(),
                     ['route' => $categoriesRoute,
-                    'routeParameters' => ['slug' => $page->getSlug(),],
+                    'routeParameters' => ['cat_id' => $page->getId(),],
 
                 ])->setLinkAttributes(['class'=>'uk-parent']);
 
@@ -100,7 +101,7 @@ class Builder implements ContainerAwareInterface
                         ->addChild($page->getCategory(),
                          ['route' => $categoriesRoute,
                         'routeParameters' => [
-                            'slug' => $page->getSlug(),
+                            'cat_id' => $page->getId(),
                         ]
                     ])->setAttributes(['class'=>'dupa', ]);
 

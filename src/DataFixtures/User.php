@@ -25,7 +25,8 @@ class User extends Fixture
         ));
         $user->setRoles(['ROLE_ADMIN', 'ROLE_SUPER_USER']);
         $user->setIsEnabled(true);
-
+        $user->setFirstName('Marcin');
+        $user->setLastName('Paczkowski');
         $manager->persist($user);
         $manager->flush();
 
